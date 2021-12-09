@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.3"
+  },
+  "name": "challenge10",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwin1201/Challenge-10-Team-Profile-Generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mwin1201/Challenge-10-Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/mwin1201/Challenge-10-Team-Profile-Generator#readme"
+}
