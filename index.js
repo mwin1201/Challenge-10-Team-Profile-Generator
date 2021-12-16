@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
 
 const managerQuestions = [
     {
@@ -57,4 +58,23 @@ const managerQuestions = [
             }
         }
     }
-]
+];
+
+// function to grab user responses
+const promptUser = () => {
+    return inquirer.prompt(managerQuestions);
+};
+
+// initialize the app
+var init = function() {
+    promptUser()
+    .then(managerAnswers => {
+        console.log(managerAnswers);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+};
+
+// Function call to initialize app
+init();
