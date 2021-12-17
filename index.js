@@ -1,5 +1,13 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
+const generateHTML = require('./src/generateHTML');
+
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const { create } = require("domain");
+
+const myTeamArray = [];
 
 const managerQuestions = [
     {
@@ -176,7 +184,7 @@ const internQuestions = [
             }
         }
     }
-]
+];
 
 const mainMenu = [
     {
@@ -198,27 +206,57 @@ const mainMenu = [
             }
         }
     }
-]
+];
 
-// function to grab user responses
-const promptUser = () => {
-    return inquirer.prompt(managerQuestions);
+// function that loops through prompts
+const promptLoop = function(decision) {
+    if (decision === "Engineer") {
+        inquirer.prompt(engineerQuestions)
+        .then(({ name, id, email, githubUsername }) => {
+            const engineer = new Engineer(name, id, email, githubUsername);
+            myTeamArray.push(engineer);
+            showMainMenu();
+        })
+    }
+    if (decision === "Intern") {
+        inquirer.prompt(internQuestions)
+        .then(({ name, id, email, school }) => {
+            const intern = new Intern(name, id, email, school);
+            myTeamArray.push(intern);
+            showMainMenu();
+        })
+    }
 };
 
+// displays the main menu asking the user if they would like to create more employees
 const showMainMenu = () => {
     console.log(
         `========================
         MAIN MENU
 ========================`
     );
-    return inquirer.prompt(mainMenu);
+    inquirer.prompt(mainMenu)
+    .then(({ createTeam }) => {
+        var decision = createTeam;
+        if (decision === "No") {
+/*             fs.writeFile('./data/employeeData.json', JSON.stringify(myTeamArray, null, 2), function(err) {
+                if (err) throw err;
+                console.log("File saved!");
+            }); */
+            generateHTML(myTeamArray);
+        }
+        else {
+            promptLoop(decision);
+        }
+    });
 };
 
 // initialize the app
 var init = function() {
-    promptUser()
-    .then(managerAnswers => {
-        console.log(managerAnswers);
+    inquirer.prompt(managerQuestions)
+    .then(({ name, id, email, officeNumber }) => {
+        const manager = new Manager(name, id, email, officeNumber);
+        myTeamArray.push(manager);
         showMainMenu();
     })
     .catch(err => {
