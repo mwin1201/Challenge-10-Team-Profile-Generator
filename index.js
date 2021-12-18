@@ -6,6 +6,7 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const { create } = require("domain");
+const { listenerCount } = require("process");
 
 const myTeamArray = [];
 
@@ -113,7 +114,7 @@ const engineerQuestions = [
     },
     {
         type: 'input',
-        name: 'githubUsername',
+        name: 'github',
         message: "Enter the engineer's github username:",
         validate: userInput => {
             if (userInput) {
@@ -212,8 +213,8 @@ const mainMenu = [
 const promptLoop = function(decision) {
     if (decision === "Engineer") {
         inquirer.prompt(engineerQuestions)
-        .then(({ name, id, email, githubUsername }) => {
-            const engineer = new Engineer(name, id, email, githubUsername);
+        .then(({ name, id, email, github }) => {
+            const engineer = new Engineer(name, id, email, github);
             myTeamArray.push(engineer);
             showMainMenu();
         })
@@ -239,11 +240,13 @@ const showMainMenu = () => {
     .then(({ createTeam }) => {
         var decision = createTeam;
         if (decision === "No") {
-/*             fs.writeFile('./data/employeeData.json', JSON.stringify(myTeamArray, null, 2), function(err) {
-                if (err) throw err;
-                console.log("File saved!");
-            }); */
-            generateHTML(myTeamArray);
+            console.log(myTeamArray);
+            let newFile = generateHTML(myTeamArray);
+            fs.writeFile('./dist/TeamProfile.html', newFile, function(err) {
+                if (err) {
+                    throw err;
+                }
+            });
         }
         else {
             promptLoop(decision);
