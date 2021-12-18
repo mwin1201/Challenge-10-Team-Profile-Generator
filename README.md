@@ -5,11 +5,16 @@
   ## Description
   This application allows users to enter information about teams involving Managers, Engineers, and Interns. The purpose of the application is to quickly generate readable informative HTML pages outlining the teams entered. Users will also have quick access to email team members via clickable links as well as quickly be able to jump to employee GitHub pages if they have one.
 
+  ## Screenshots
+  HTML Team Page
+  ![team_profile_generator_html](https://user-images.githubusercontent.com/90287696/146646401-dcb61a11-96b9-4a7a-a5aa-3303e918aaf2.png)
+
   ## Table of Contents
   1. [Installation](#installation)
   2. [Usage](#usage)
   3. [Contributing](#contributing)
   4. [Tests](#tests)
+  5. [Tutorial Video](#tutorial)
   5. [License](#license)
   6. [Questions](#questions)
 
@@ -25,6 +30,9 @@
   ## Tests
   To run the tests included in this application enter npm run test. This will kick off the 4 test cases using Jest.
   
+  ## Tutorial
+  [Video Tutorial](https://drive.google.com/file/d/1iWogBu6J8YFFpqaDi9Ipu17mw9VzoMnf/view?usp=sharing)
+
   ## License
   Copyright (c) 2021 Max Winter. Licensed under the MIT license.
   
