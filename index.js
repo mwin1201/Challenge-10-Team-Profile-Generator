@@ -5,11 +5,11 @@ const generateHTML = require('./src/generateHTML');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const { create } = require("domain");
-const { listenerCount } = require("process");
 
+// array to store the employee objects when they are created
 const myTeamArray = [];
 
+// prompts related to the Manager
 const managerQuestions = [
     {
         type: 'input',
@@ -44,7 +44,7 @@ const managerQuestions = [
         name: 'email',
         message: "Enter the manager's email address:",
         validate: userInput => {
-            if (userInput) {
+            if (userInput.includes("@")) {
                 return true;
             }
             else {
@@ -69,6 +69,7 @@ const managerQuestions = [
     }
 ];
 
+// prompts related to the Engineer
 const engineerQuestions = [
     {
         type: 'input',
@@ -103,7 +104,7 @@ const engineerQuestions = [
         name: 'email',
         message: "Enter the engineer's email address:",
         validate: userInput => {
-            if (userInput) {
+            if (userInput.includes("@")) {
                 return true;
             }
             else {
@@ -128,6 +129,7 @@ const engineerQuestions = [
     }
 ];
 
+// prompts related to the Intern
 const internQuestions = [
     {
         type: 'input',
@@ -162,7 +164,7 @@ const internQuestions = [
         name: 'email',
         message: "Enter the intern's email address:",
         validate: userInput => {
-            if (userInput) {
+            if (userInput.includes("@")) {
                 return true;
             }
             else {
@@ -187,6 +189,7 @@ const internQuestions = [
     }
 ];
 
+// menu asking users if they want to add other employees to the list
 const mainMenu = [
     {
         type: 'list',
@@ -209,7 +212,7 @@ const mainMenu = [
     }
 ];
 
-// function that loops through prompts
+// function that loops through prompts for Interns and Engineers
 const promptLoop = function(decision) {
     if (decision === "Engineer") {
         inquirer.prompt(engineerQuestions)
@@ -240,11 +243,14 @@ const showMainMenu = () => {
     .then(({ createTeam }) => {
         var decision = createTeam;
         if (decision === "No") {
-            console.log(myTeamArray[0]);
             let newFile = generateHTML(myTeamArray);
+            // write a new file to the dist folder each time somebody uses this application
             fs.writeFile('./dist/TeamProfile.html', newFile, function(err) {
                 if (err) {
                     throw err;
+                }
+                else {
+                    console.log("File created!");
                 }
             });
         }
@@ -254,7 +260,7 @@ const showMainMenu = () => {
     });
 };
 
-// initialize the app
+// initialize the app by starting with Manager prompts
 var init = function() {
     inquirer.prompt(managerQuestions)
     .then(({ name, id, email, officeNumber }) => {
@@ -268,9 +274,9 @@ var init = function() {
 };
 
 // Function call to initialize app
-//init();
+init();
 
-let TeamArray = [
+/* let TeamArray = [
     {
       name: 'Maxwell',
       id: '1',
@@ -305,4 +311,4 @@ fs.writeFile('./dist/TeamProfile.html', fileData, function(err) {
     else{
         console.log("file created!");
     }
-});
+}); */
