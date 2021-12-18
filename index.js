@@ -240,7 +240,7 @@ const showMainMenu = () => {
     .then(({ createTeam }) => {
         var decision = createTeam;
         if (decision === "No") {
-            console.log(myTeamArray);
+            console.log(myTeamArray[0]);
             let newFile = generateHTML(myTeamArray);
             fs.writeFile('./dist/TeamProfile.html', newFile, function(err) {
                 if (err) {
@@ -268,4 +268,41 @@ var init = function() {
 };
 
 // Function call to initialize app
-init();
+//init();
+
+let TeamArray = [
+    {
+      name: 'Maxwell',
+      id: '1',
+      email: 'max@company.com',
+      officeNumber: '1'
+    },
+    {
+      name: 'Peter',
+      id: '2',
+      email: 'peter@company.com',
+      github: 'mwin1201'
+    },
+    {
+      name: 'Nick',
+      id: '3',
+      email: 'nick@company.com',
+      github: 'knightsRule12'
+    },
+    {
+      name: 'Ben',
+      id: '9',
+      email: 'ben@company.com',
+      school: 'University of Wisconsin'
+    }
+  ];
+
+let fileData = generateHTML(TeamArray);
+fs.writeFile('./dist/TeamProfile.html', fileData, function(err) {
+    if (err) {
+        throw err;
+    }
+    else{
+        console.log("file created!");
+    }
+});
